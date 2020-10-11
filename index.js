@@ -8,16 +8,23 @@ const path = require('path')
 const app = express()
 
 // Use secure middleware to redirect to https
-app.use(secure)
+// app.use(secure)
 
 // Use prerender io middleware
-app.use(prerender.set('prerenderToken', prerenderToken))
+// app.use(prerender.set('prerenderToken', prerenderToken))
 
 // Specify build folder
 app.use(express.static(path.join(__dirname, 'static')))
 
 // Serve index.html on every url.
 app.get('*', (req, res) => {
+  const url = req.originalUrl
+
+  if(url.match(/^\/@(.*)\/c\/(.*)/g)) {
+    const splitUrl = url.split('/')
+    console.log(splitUrl)
+  }
+
   res.sendFile(path.join(__dirname, 'static', 'build.html'))
 })
 
