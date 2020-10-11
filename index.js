@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, 'static')))
 
 // Serve index.html on every url.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'static', 'index.html'))
+  res.sendFile(path.join(__dirname, 'static', 'build.html'))
 })
+
 
 app.listen(port, () => console.log(`listening on port ${port}`))
