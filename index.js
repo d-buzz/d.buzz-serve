@@ -11,17 +11,22 @@ const app = express()
 // app.use(secure)
 
 // Use prerender io middleware
-// app.use(prerender.set('prerenderToken', prerenderToken))
+app.use(prerender.set('prerenderToken', prerenderToken))
 
 // Specify build folder
 app.use(express.static(path.join(__dirname, 'static')))
 
 // Serve index.html on every url.
 app.get('*', (req, res) => {
-  const url = req.originalUrl
+  const uri = req.originalUrl
+  console.log({ uri })
+  const url = require('url')
+  const urlObj = url.parse(req.url)
+  console.log({ urlObj })
+  console.log(urlObj.hash)
 
-  if(url.match(/^\/@(.*)\/c\/(.*)/g)) {
-    const splitUrl = url.split('/')
+  if(uri.match(/^\/@(.*)\/c\/(.*)/g)) {
+    const splitUrl = uri.split('/')
     console.log(splitUrl)
   }
 
